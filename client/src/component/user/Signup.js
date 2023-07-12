@@ -70,8 +70,8 @@ export default function Signup() {
   };
   return (
     <>
-      <div className="wrapper img2" src="background.png">
-        <img src="fubao.png" className="img" />
+      <div className="wrapper">
+        <img src="pubaoLogo.png" className="img" />
         <form className="form-signin">
           <h1 className="form-signin-heading">Signup</h1>
           <div className="inputs">
@@ -79,13 +79,15 @@ export default function Signup() {
               <label className="info">EMAIL: </label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control text"
                 name="email"
                 placeholder="Email Address"
                 required=""
                 value={inputemail}
                 onChange={(e) => setInputemail(e.target.value)}
                 ref={emailRef}
+                
+                
               />
             </div>
             <div className="input">
@@ -105,7 +107,7 @@ export default function Signup() {
               <label className="info">NAME: </label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control text"
                 name="username"
                 placeholder="User name"
                 required=""
@@ -122,7 +124,7 @@ export default function Signup() {
               </label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control text"
                 name="nickname"
                 placeholder="Nick Name"
                 required=""
