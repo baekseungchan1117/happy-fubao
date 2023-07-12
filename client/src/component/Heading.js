@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import "./Heading.css";
 export default function Heading() {
+  const [token, setToken] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   let headerName;
@@ -21,6 +22,15 @@ export default function Heading() {
   const goToElement = (element) => {
     navigate("/", { state: { scrollTo: element } });
   };
+  function logout() {
+    //로컬스토리지 비우기
+    localStorage.removeItem("login");
+    //토큰 null
+    setToken(null);
+  }
+  const mainClick = () => {
+    navigate("/");
+  };
   return (
     <div className="inner">
       <div className="header">
@@ -28,6 +38,7 @@ export default function Heading() {
           <img
             className="main-logo"
             src={process.env.PUBLIC_URL + "/goods_image/main-logo.png"}
+            onClick={mainClick}
           />
           <div
             className="header_name"
@@ -50,19 +61,48 @@ export default function Heading() {
           >
             Cart{" "}
           </RouterLink>
-          <RouterLink
-            to={"/signup"}
-            style={{ color: "white", textDecoration: "none", marginLeft: "1%" }}
-          >
-            {" "}
-            Join us{" "}
-          </RouterLink>
-          <RouterLink
-            to={"/login"}
-            style={{ color: "white", textDecoration: "none", marginLeft: "1%" }}
-          >
-            Log in
-          </RouterLink>
+          {/* 로그인이 되어있지 않은 경우(로컬스토리지가 빈 경우) */}
+          <div className="login">
+            {console.log(localStorage)}
+            {localStorage.length === 0 ? (
+              <>
+                <RouterLink
+                  to={"/signup"}
+                  style={{
+                    color: "white",
+                    textDecoration: "none",
+                    marginLeft: "5%",
+                  }}
+                >
+                  {" "}
+                  Join us{" "}
+                </RouterLink>
+                <RouterLink
+                  to={"/login"}
+                  style={{
+                    color: "white",
+                    textDecoration: "none",
+                    marginLeft: "5%",
+                  }}
+                >
+                  Log in
+                </RouterLink>
+              </>
+            ) : (
+              //로그인이 되어있는 경우(로컬스토리지에 토큰이 있는 경우)
+              <div
+                onClick={logout}
+                style={{
+                  color: "white",
+                  background: "#3B3B3B",
+                  textDecoration: "none",
+                  marginLeft: "5%",
+                }}
+              >
+                Log out
+              </div>
+            )}
+          </div>
         </div>
         <div className="header_Sub">
           <button

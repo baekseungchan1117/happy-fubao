@@ -1,17 +1,13 @@
-
 import React, { useState } from "react";
 import "./User.css";
 import { SERVER } from "../../lib/constant";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
-
 export default function LoginFunc() {
   const navigate = useNavigate();
   const [Email, setEmail] = useState("");
   const [PW, setPW] = useState("");
-
 
   const LoginFunc = async (e) => {
     e.preventDefault();
@@ -32,7 +28,14 @@ export default function LoginFunc() {
       if (res.data.result) {
         console.log(res.data);
         alert(`${res.data.nickname}님 환영합니다!`);
-        localStorage.setItem("login", JSON.stringify({ token: res.data.token, userId: res.data.userID, nickname: res.data.nickname, }));
+        localStorage.setItem(
+          "login",
+          JSON.stringify({
+            token: res.data.token,
+            userId: res.data.userID,
+            nickname: res.data.nickname,
+          })
+        );
         window.location.replace("/");
       } else {
         console.log(res);
@@ -42,8 +45,8 @@ export default function LoginFunc() {
   };
   return (
     <>
-      <div className="wrapper img2" src="background.png">
-        <img src="fubao.png" className="img" />
+      <div className="wrapper">
+        <img src="pubaoLogo.png" className="img" />
         <form className="form-signin">
           <h1 class="form-signin-heading">login</h1>
           <div class="inputs">
@@ -58,13 +61,14 @@ export default function LoginFunc() {
                 autofocus=""
                 value={Email}
                 onChange={(e) => setEmail(e.currentTarget.value)}
+                className="form-control text"
               />
             </div>
             <div class="input">
               <label class="info">PW: </label>
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 name="password"
                 placeholder="Password"
                 required=""
